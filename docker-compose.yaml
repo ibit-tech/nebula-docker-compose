@@ -327,7 +327,8 @@ services:
   console:
     image: vesoft/nebula-console:nightly
     entrypoint: ""
-    command: 
+    platform: linux/amd64
+    command:
       - sh
       - -c
       - |
@@ -340,6 +341,16 @@ services:
           echo "retry to add hosts.";
         done && tail -f /dev/null;
 
+    depends_on:
+      - graphd
+    networks:
+      - nebula-net
+  studio:
+    image: vesoft/nebula-graph-studio:nightly
+    entrypoint: ""
+    platform: linux/amd64
+    ports:
+      - "7001:7001"
     depends_on:
       - graphd
     networks:
